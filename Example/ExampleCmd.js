@@ -1,5 +1,4 @@
 const { Message, Client, MessageEmbed } = require("discord.js");
-const owner = require('../config.json').owner
 
 module.exports = {
     name: "",
@@ -8,6 +7,7 @@ module.exports = {
     BotPermission: [''],
     UserPermission: [''],
     timeout: 10000, // In milliseconds
+    ownerOnly: true, // or false
     /**
      *
      * @param {Client} client
@@ -16,15 +16,3 @@ module.exports = {
      */
     run: async (client, message, args) => {},
 };
-
-// ____________________________________________________________________________________________________________________________________________
-// ____________________________________________________________________________________________________________________________________________
-
-if (message.author.id != owner) {
-    const OwnersEmbed = new MessageEmbed()
-    .setColor("BLURPLE")
-    .setDescription( "**This Command only works for Developers!**" ); 
-    return message.channel.send({ embeds: [OwnersEmbed]})
-  }
-
-  require('../commands')
