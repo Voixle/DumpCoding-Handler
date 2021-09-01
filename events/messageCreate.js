@@ -1,4 +1,7 @@
 const client = require("../index");
+const { Collection } = require('discord.js')
+const Timeout = new Collection();
+const ms = require('ms');
 
 client.on("messageCreate", async (message) => {
     if (
@@ -22,6 +25,16 @@ client.on("messageCreate", async (message) => {
         
         if (!message.guild.me.permissions.has(command.BotPermission || [])) return message.channel.send(`**I need \`${command.BotPermission || []}\` Permission. Before i can Execute this Command.**`)
 
+    }
+
+    if (command) {
+        if(command.timeout) {
+            if(Timeout.has(`${command.name}${message.author.id}`)) return message.channel.send(`**❌ Please wait. You are on a \`${ms(Timeout.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` Cooldown.**`)
+            Timeout.set(`${command.name}${message.author.id}`, Date.now() + command.timeout)
+            setTimeout(() => {
+                Timeout.delete(`${command.name}${message.author.id}`)
+            }, command.timeout)
+        }
     }
 
     if (!command) return;
