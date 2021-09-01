@@ -1,6 +1,6 @@
 {
     "token": "Your Bot Token Here!",
     "prefix": "You Bot Prefix here",
-    "mongooseConnectionString": "MongoDB string here",
+    "mongooseConnectionString": "MongoDB string here not needed for now cuz we are not using MongoDB",
     "owner": "you Id"
 }

@@ -7,7 +7,6 @@ module.exports = {
     description: "",
     BotPermission: [''],
     UserPermission: [''],
-    emoji: ``,
     /**
      *
      * @param {Client} client
