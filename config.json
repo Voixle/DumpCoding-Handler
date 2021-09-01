@@ -1,6 +1,6 @@
 {
-    "token": "ODY2OTQxODcxODg4NjYyNTM4.YPZ4iQ.oRrbYiBJOZe39SOKegauAbxtBT8",
-    "prefix": "!",
-    "mongooseConnectionString": "mongodb+srv://HugoModeration:ygH7GJAnDzzYu3oH@hugomoderation.xmixc.mongodb.net/data",
-    "owner": "838404086273540136"
+    "token": "Your Bot Token Here!",
+    "prefix": "You Bot Prefix here",
+    "mongooseConnectionString": "MongoDB string here",
+    "owner": "you Id"
 }
