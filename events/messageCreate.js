@@ -2,6 +2,8 @@ const client = require("../index");
 const { Collection } = require('discord.js')
 const Timeout = new Collection();
 const ms = require('ms');
+const { owners } = require("../config.json");
+const { MessageEmbed } = require('discord.js');
 
 client.on("messageCreate", async (message) => {
     if (
@@ -20,10 +22,10 @@ client.on("messageCreate", async (message) => {
 
     if (command) {
         
-        if (!message.member.permissions.has(command.UserPermission || [])) return message.channel.send(`**You need \`${command.UserPermission || []}\` Permission. before using this Command!**`)
+        if (!message.member.permissions.has(command.UserPermission || [])) return message.channel.send(`**[ERROR]: You need \`${command.UserPermission || []}\` Permission. before using this Command!**`)
 
         
-        if (!message.guild.me.permissions.has(command.BotPermission || [])) return message.channel.send(`**I need \`${command.BotPermission || []}\` Permission. Before i can Execute this Command.**`)
+        if (!message.guild.me.permissions.has(command.BotPermission || [])) return message.channel.send(`**[ERROR]: I need \`${command.BotPermission || []}\` Permission. Before i can Execute this Command.**`)
 
     }
 
@@ -36,6 +38,17 @@ client.on("messageCreate", async (message) => {
             }, command.timeout)
         }
     }
+
+    if (command) {
+        if (command.ownerOnly) {
+       if (!owners.includes(message.author.id))
+       { const ownerOnly = new MessageEmbed()
+        .setColor("BLURPLE")
+        .setDescription("**[ERROR]: This Command only works for Developers**"); 
+       return message.channel.send({ embeds: [ownerOnly]})
+       }
+    }
+}   
 
     if (!command) return;
     await command.run(client, message, args);
