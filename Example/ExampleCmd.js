@@ -7,6 +7,7 @@ module.exports = {
     description: "",
     BotPermission: [''],
     UserPermission: [''],
+    timeout: 10000, // In milliseconds
     /**
      *
      * @param {Client} client
