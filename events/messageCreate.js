@@ -22,16 +22,29 @@ client.on("messageCreate", async (message) => {
 
     if (command) {
         
-        if (!message.member.permissions.has(command.UserPermission || [])) return message.channel.send(`**[ERROR]: You need \`${command.UserPermission || []}\` Permission. before using this Command!**`)
+        if (!message.member.permissions.has(command.UserPermission || [])) { const User = new MessageEmbed()
+            .setColor("BLURPLE")
+            .setDescription(`**[ERROR]: You need \`${command.UserPermission || []}\` Permission. before using this Command!**`);
+            return message.channel.send({ embeds: [User] })
+        }
 
         
-        if (!message.guild.me.permissions.has(command.BotPermission || [])) return message.channel.send(`**[ERROR]: I need \`${command.BotPermission || []}\` Permission. Before i can Execute this Command.**`)
+        if (!message.guild.me.permissions.has(command.BotPermission || [])) { const Bot = new MessageEmbed()
+            .setColor("BLURPLE")
+            .setDescription(`**[ERROR]: I need \`${command.BotPermission || []}\` Permission. Before i can Execute this Command.**`);
+            return message.channel.send({ embeds: [Bot] })
+        }
 
     }
 
     if (command) {
         if(command.timeout) {
-            if(Timeout.has(`${command.name}${message.author.id}`)) return message.channel.send(`**❌ Please wait. You are on a \`${ms(Timeout.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` Cooldown.**`)
+            if(Timeout.has(`${command.name}${message.author.id}`))
+            { const Cooldown = new MessageEmbed()
+                .setColor("RED")
+                .setDescription(`**[ERROR]: Please wait. You are on a \`${ms(Timeout.get(`${command.name}${message.author.id}`) - Date.now(), {long : true})}\` Cooldown.**`);
+                return message.channel.send({ embeds: [Cooldown] })
+            }
             Timeout.set(`${command.name}${message.author.id}`, Date.now() + command.timeout)
             setTimeout(() => {
                 Timeout.delete(`${command.name}${message.author.id}`)
@@ -43,9 +56,9 @@ client.on("messageCreate", async (message) => {
         if (command.ownerOnly) {
        if (!owners.includes(message.author.id))
        { const ownerOnly = new MessageEmbed()
-        .setColor("BLURPLE")
+        .setColor("RED")
         .setDescription("**[ERROR]: This Command only works for Developers**"); 
-       return message.channel.send({ embeds: [ownerOnly]})
+       return message.channel.send({ embeds: [ownerOnly] })
        }
     }
 }   
